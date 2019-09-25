@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
 import Grid from '../components/Grid';
+import _ from 'lodash';
 
 export default class GridGroup extends React.Component {
     constructor(props) {
@@ -14,17 +15,14 @@ export default class GridGroup extends React.Component {
     renderGrids = () => {
         let grids = [];
 
-        for (let i = 1; i <= this.state.numbers; i++) {
-            grids.push(
-                <Grid key={i}
-                    // ref={i}
-                    // gridId={i}
-                    // onUpdate={this.checkCorrection.bind(this)}
-                />
+        let range = _.range(1, this.state.numbers);
+        grids = range.map(number => {
+            return (
+                <Grid key={number} />
             );
-        }
+        });
 
-        return (grids);
+        return grids;
     }
 
     render() {
