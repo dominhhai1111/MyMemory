@@ -15,7 +15,7 @@ export default class GridGroup extends React.Component {
     renderGrids = () => {
         let grids = [];
 
-        let range = _.range(1, this.state.numbers);
+        let range = _.range(1, this.state.numbers + 1);
         grids = range.map(number => {
             return (
                 <Grid key={number} />
