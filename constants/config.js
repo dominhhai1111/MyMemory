@@ -5,10 +5,10 @@ export const STATUS_WAITING = 4;
 export const STATUS_FINISH = 5;
 
 export const RATE_STEP_DURATION = 50;
-export const MAX_STEP_DURATION = 1600;
-export const MIN_STEP_DURATION = 800;
+export const MAX_STEP_DURATION = 400;
+export const MIN_STEP_DURATION = 100;
 
-export const MIN_STEPS_NUMBER = 5;
+export const MIN_STEPS_NUMBER = 15;
 export const MIN_GRID = 1;
 export const MAX_GRID = 9;
 
@@ -35,3 +35,6 @@ export const ANIMATE_BORDER_DURATION = 1000;
 export const ANIMATE_BORDER_ONE = 0;
 export const ANIMATE_BORDER_TWO = 200;
 export const ANIMATE_BORDER_THREE = 400;
+
+export const ROW = 3;
+export const COLUMN = 3;
