@@ -15,6 +15,8 @@ export default class GridGroup extends React.Component {
             animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
         };
 
+        this.position = {};
+
         this.measurements = [];
 
         this._panResponder = PanResponder.create({
@@ -75,6 +77,23 @@ export default class GridGroup extends React.Component {
         return grids;
     }
 
+    setPosition = () => {
+        this.gridGroup.measure( (fx, fy, width, height, px, py) => {
+            // console.log('Component width is: ' + width)
+            // console.log('Component height is: ' + height)
+            // console.log('X offset to frame: ' + fx)
+            // console.log('Y offset to frame: ' + fy)
+            // console.log('X offset to page: ' + px)
+            // console.log('Y offset to page: ' + py)
+            this.position = { 
+                x: px,
+                y: py,
+            }
+
+            console.log(this.position);
+        })        
+    }
+
     animateBorder = () => {
         Animated.timing(this.state.animatedBorderColor, {
             toValue: config.ANIMATE_BORDER_THREE,
@@ -113,7 +132,12 @@ export default class GridGroup extends React.Component {
         };
 
         return (
-            <View style={styles.grid_area_bound} {...this._panResponder.panHandlers}>
+            <View 
+                ref={view => { this.gridGroup = view; }}
+                style={styles.grid_area_bound} 
+                {...this._panResponder.panHandlers}
+                onLayout={() => this.setPosition()}
+            >
                 <Animated.View style={[styles.grid_area, animatedBorderStyle]}>
                     {grids}
                 </Animated.View>

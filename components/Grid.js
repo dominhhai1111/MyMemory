@@ -34,6 +34,7 @@ export default class Grid extends React.Component {
 	}
 
 	setColor(color) {
+		console.log("Set color grid");
 		if (this.state.status != config.STATUS_FINISH || color == config.ANIMATE_VALUE_INCORRECT) {
 			this.setState({
 				animatedColor: new Animated.Value(color),
@@ -90,18 +91,19 @@ export default class Grid extends React.Component {
 		this.enableTouchGrid(false);
     }
     
-    addMeasurement = (layout) => {
+    addMeasurement = () => {
         const { gridId, addMeasurement } = this.props;
-
-        let measurement = {
-            gridId: gridId,
-            x1: layout.x,
-            x2: layout.x + layout.width,
-            y1: layout.y,
-            y2: layout.y + layout.height,
-        };
-
-        addMeasurement(measurement);
+		this.grid.measure((fx, fy, width, height, px, py) => {
+			let measurement = {
+				gridId: gridId,
+				x1: px,
+				x2: px + width,
+				y1: py,
+				y2: py + height,
+			};
+	
+			addMeasurement(measurement);
+		});
     }
 
     render() {
@@ -128,13 +130,14 @@ export default class Grid extends React.Component {
 		};
 
         return(
-            <TouchableHighlight 
+            <TouchableHighlight
+				ref={ view => { this.grid = view } } 
 				onPress={ () => onUpdate(gridId) } 
 				disabled={ !this.state.enableTouchGrid }
 				onShowUnderlay={ () => this.setColor(config.ANIMATE_VALUE_TOUCHING) }
                 onHideUnderlay={ () => this.setColor(config.ANIMATE_VALUE_NORMAL_BEGIN) } 
-                onLayout={(object) => {
-                    this.addMeasurement(object.nativeEvent.layout);
+                onLayout={() => {
+                    this.addMeasurement();
                 }}
 			>
                 <Animated.View 

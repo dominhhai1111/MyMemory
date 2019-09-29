@@ -288,6 +288,7 @@ export default class Main extends React.Component {
 	}
 
 	checkCorrection = async (gridId) => {
+		console.log('Check correction');
 		await this.setState(previousState => ({
 				'currentCheckedNumber': previousState.currentCheckedNumber + 1,
 			}));
