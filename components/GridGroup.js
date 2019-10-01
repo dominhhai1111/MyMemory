@@ -13,6 +13,7 @@ export default class GridGroup extends React.Component {
             status: props.status,
             numbers: props.numbers,
             animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
+            currentGesturedGridId: '',
         };
 
         this.position = {};
@@ -30,19 +31,20 @@ export default class GridGroup extends React.Component {
                 // The gesture has started. Show visual feedback so the user knows
                 // what is happening!
                 // gestureState.d{x,y} will be set to zero now
-                this.gestureGrid(evt, 1);
+                this.gestureGrid(evt, config.EVENT_GRANT);
             },
             onPanResponderMove: (evt, gestureState) => {
                 // The most recent move distance is gestureState.move{X,Y}
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
                 //   console.log(`Move: ${this.props.gridId}`);
+                this.gestureGrid(evt, config.EVENT_MOVE);
             },
             onPanResponderTerminationRequest: (evt, gestureState) => true,
             onPanResponderRelease: (evt, gestureState) => {
                 // The user has released all touches while this view is the
                 // responder. This typically means a gesture has succeeded
-                //   console.log(`Release: ${this.props.gridId}`);
+                this.gestureGrid(evt, config.EVENT_RELEASE);
             },
             onPanResponderTerminate: (evt, gestureState) => {
                 // Another component has become the responder, so this gesture
@@ -105,20 +107,52 @@ export default class GridGroup extends React.Component {
         this.measurements.push(measurement);
     }
 
-    gestureGrid = (evt, type) => {
+    gestureGrid = async (evt, type) => {
         const { pageX, pageY } = evt.nativeEvent;
-        console.log(evt.nativeEvent);
-        // console.log(this.measurements);
-        this.measurements.map(measurement => {
-            if (
-                pageX >= measurement.x1
-                && pageX <= measurement.x2
-                && pageY >= measurement.y1
-                && pageY <= measurement.y2
-            ) {
-                console.log(measurement.gridId);
+        const { onUpdate, status } = this.props;
+
+        if (status == config.STATUS_ANSWERING) {
+            this.measurements.map(async measurement => {
+                if (
+                    pageX >= measurement.x1
+                    && pageX <= measurement.x2
+                    && pageY >= measurement.y1
+                    && pageY <= measurement.y2
+                ) {
+                    if (
+                        type == config.EVENT_GRANT ||
+                        (type == config.EVENT_MOVE && measurement.gridId != this.state.currentGesturedGridId)
+                    ) {
+                        console.log(`Type: ${type}`);
+                        console.log(`Grid: ${measurement.gridId}`);
+                        if (this.state.currentGesturedGridId != '') {
+                            await this.refs[this.state.currentGesturedGridId].onDropGrid();
+                        }
+                        
+                        await this.setState({ currentGesturedGridId: measurement.gridId });
+                        await console.log(this.state);
+                        await this.refs[measurement.gridId].onPressGrid();
+                        await onUpdate(measurement.gridId);
+    
+                        return;
+                    }
+    
+                    if ( type == config.EVENT_RELEASE ) {
+                        await this.setState({ currentGesturedGridId: '' });
+                        await this.refs[measurement.gridId].onDropGrid();
+    
+                        return;
+                    }
+                }
+            })
+    
+            if (this.state.currentGesturedGridId) {
+                await this.refs[this.state.currentGesturedGridId].onDropGrid();
+                await this.setState({ currentGesturedGridId: '' });
+
+                return;
             }
-        })
+        }
     }
 
     render() {

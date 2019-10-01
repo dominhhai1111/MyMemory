@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Animated, TouchableHighlight } from 'react-native';
+import { StyleSheet, Animated, View, TouchableHighlight } from 'react-native';
 
 import * as config from '../constants/config';
 
@@ -15,15 +15,35 @@ export default class Grid extends React.Component {
         }
     }
 
-    animateGrid() {
-		this.setState({
+    animateGrid = async () => {
+		await this.setState({
 			animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
 		});
-		Animated.timing(this.state.animatedColor, {
+		await Animated.timing(this.state.animatedColor, {
 			toValue: config.ANIMATE_VALUE_NORMAL_END,
 			duration: config.ANIMATE_GRID_DURATION,
 		}).start();
-    }
+	}
+	
+	onPressGrid = async () => {
+		await this.setState({
+			animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
+		});
+		await Animated.timing(this.state.animatedColor, {
+			toValue: config.ANIMATE_VALUE_TOUCHING,
+			duration: config.ANIMATE_GRID_DURATION/2,
+		}).start();
+	}
+
+	onDropGrid = async () => {
+		await this.setState({
+			animatedColor: new Animated.Value(config.ANIMATE_VALUE_TOUCHING),
+		});
+		await Animated.timing(this.state.animatedColor, {
+			toValue: config.ANIMATE_VALUE_NORMAL_END,
+			duration: config.ANIMATE_GRID_DURATION/2,
+		}).start();
+	}
     
     enableTouchGrid(enableTouchGrid) {
 		this.setState(
@@ -34,7 +54,6 @@ export default class Grid extends React.Component {
 	}
 
 	setColor(color) {
-		console.log("Set color grid");
 		if (this.state.status != config.STATUS_FINISH || color == config.ANIMATE_VALUE_INCORRECT) {
 			this.setState({
 				animatedColor: new Animated.Value(color),
@@ -130,12 +149,8 @@ export default class Grid extends React.Component {
 		};
 
         return(
-            <TouchableHighlight
+            <View
 				ref={ view => { this.grid = view } } 
-				onPress={ () => onUpdate(gridId) } 
-				disabled={ !this.state.enableTouchGrid }
-				onShowUnderlay={ () => this.setColor(config.ANIMATE_VALUE_TOUCHING) }
-                onHideUnderlay={ () => this.setColor(config.ANIMATE_VALUE_NORMAL_BEGIN) } 
                 onLayout={() => {
                     this.addMeasurement();
                 }}
@@ -144,7 +159,7 @@ export default class Grid extends React.Component {
                     style={[styles.grid, animatedStyle]} 
                 >
                 </Animated.View>
-			</TouchableHighlight>
+			</View>
         );
     }
 }

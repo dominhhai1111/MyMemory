@@ -213,7 +213,7 @@ export default class Main extends React.Component {
 			steps[index] = (this.map[move.x][move.y]);
 			index++;
 		});
-
+console.log(steps);
 		this.setState({ steps });
 	}
 

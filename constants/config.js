@@ -38,3 +38,7 @@ export const ANIMATE_BORDER_THREE = 400;
 
 export const ROW = 3;
 export const COLUMN = 3;
+
+export const EVENT_GRANT = 1;
+export const EVENT_MOVE = 2;
+export const EVENT_RELEASE = 3;
