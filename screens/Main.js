@@ -12,8 +12,10 @@ import * as config from '../constants/config';
 import GridGroup from '../components/GridGroup';
 import Info from '../components/Info';
 import ControlButton from '../components/ControlButton';
+import Notice from '../components/Notice';
 
 const GRIDGROUP = 1;
+const NOTICE = 2;
 
 export default class Main extends React.Component {
 	constructor(props) {
@@ -60,7 +62,8 @@ export default class Main extends React.Component {
 		};
 
 		this.refsName = {
-			[GRIDGROUP]: 'GRID_GROUP'
+			[GRIDGROUP]: 'GRID_GROUP',
+			[NOTICE]: 'NOTICE',
 		};
 
 		this.map = {
@@ -213,7 +216,7 @@ export default class Main extends React.Component {
 			steps[index] = (this.map[move.x][move.y]);
 			index++;
 		});
-console.log(steps);
+		console.log(steps);
 		this.setState({ steps });
 	}
 
@@ -262,7 +265,7 @@ console.log(steps);
 	}
 
 	showNotice = (notice) => {
-		this.refs.notice.showNotice(notice);
+		this.refs[this.refsName[NOTICE]].showNotice(notice);
 	}
 
 	onPressBtnControl = async () => {
@@ -294,10 +297,13 @@ console.log(steps);
 			}));
 
 		if (gridId != this.state.steps[this.state.currentCheckedNumber]) {
-			this.refs[this.refsName[GRIDGROUP]].refs[gridId].setColor(config.ANIMATE_VALUE_INCORRECT);
+			await this.refs[this.refsName[GRIDGROUP]].removeGestureGrid();
+			await this.refs[this.refsName[GRIDGROUP]].refs[gridId].setColor(config.ANIMATE_VALUE_INCORRECT);
 			this.setStatus(config.STATUS_FINISH);
+			
 		} else {
 			if (this.state.currentCheckedNumber == this.state.stepsNumber) {
+				this.refs[this.refsName[GRIDGROUP]].removeGestureGrid();
 				this.setStatus(config.STATUS_WAITING);
 			}
 		}
@@ -321,6 +327,10 @@ console.log(steps);
 
 		return (
 			<View style={styles.container}>
+				<Notice
+					ref={this.refsName[NOTICE]}
+					continue={this.continue}
+				/>
 				<Info
 					level={level}
 					currentCheckedNumber={currentCheckedNumber}

@@ -4,11 +4,11 @@ export const STATUS_ANSWERING = 3;
 export const STATUS_WAITING = 4;
 export const STATUS_FINISH = 5;
 
-export const RATE_STEP_DURATION = 50;
-export const MAX_STEP_DURATION = 400;
+export const RATE_STEP_DURATION = 10;
+export const MAX_STEP_DURATION = 300;
 export const MIN_STEP_DURATION = 100;
 
-export const MIN_STEPS_NUMBER = 15;
+export const MIN_STEPS_NUMBER = 5;
 export const MIN_GRID = 1;
 export const MAX_GRID = 9;
 

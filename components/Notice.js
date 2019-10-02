@@ -1,27 +1,26 @@
 import React from 'react';
+import { StyleSheet, View, Animated } from 'react-native';
+import { Font } from 'expo-font';
+
+import * as config from '../constants/config';
 
 export default class Notice extends React.Component {
     state = {
         message: '',
         fontLoaded: false,
-        animateFontSizeValue: new Animated.Value(ANIMATE_NOTICE_MIN_VALUE),
+        animateFontSizeValue: new Animated.Value(config.ANIMATE_NOTICE_MIN_VALUE),
         isShowed: false,
         noticeColor: '',
     };
 
     noticeText = {
-        [NOTICE_WIN]: 'Correct',
-        [NOTICE_LOSE]: 'Incorrect',
+        [config.NOTICE_WIN]: 'Correct',
+        [config.NOTICE_LOSE]: 'Incorrect',
     }
 
     noticeColor = {
-        [NOTICE_WIN]: 'yellow',
-        [NOTICE_LOSE]: 'red',
-    }
-
-    constructor() {
-        super();
-        this.hideNotice = this.hideNotice.bind(this);
+        [config.NOTICE_WIN]: 'yellow',
+        [config.NOTICE_LOSE]: 'red',
     }
 
     componentDidMount() {
@@ -31,14 +30,14 @@ export default class Notice extends React.Component {
         }).then(() => this.setState({ 'fontLoaded': true }));
     }
 
-    animateNotice(notice) {
+    animateNotice = (notice) => {
         Animated.timing(this.state.animateFontSizeValue, {
-            'toValue': ANIMATE_NOTICE_MAX_VALUE,
-            'duration': ANIMATE_NOTICE_DURATION,
-        }).start(() => setTimeout(() => this.hideNotice(notice), ANIMATE_NOTICE_OFF_TIMEOUT));
+            'toValue': config.ANIMATE_NOTICE_MAX_VALUE,
+            'duration': config.ANIMATE_NOTICE_DURATION,
+        }).start(() => setTimeout(() => this.hideNotice(notice), config.ANIMATE_NOTICE_OFF_TIMEOUT));
     }
 
-    showNotice(notice) {
+    showNotice = (notice) => {
         this.setState({
             isShowed: true,
             message: this.noticeText[notice],
@@ -48,13 +47,13 @@ export default class Notice extends React.Component {
         this.animateNotice(notice);
     }
 
-    hideNotice(notice) {
+    hideNotice = (notice) => {
         this.setState({
             isShowed: false,
-            animateFontSizeValue: new Animated.Value(ANIMATE_NOTICE_MIN_VALUE),
+            animateFontSizeValue: new Animated.Value(config.ANIMATE_NOTICE_MIN_VALUE),
         });
 
-        if (notice == NOTICE_WIN) {
+        if (notice == config.NOTICE_WIN) {
             this.props.continue();
         }
     }
@@ -81,3 +80,20 @@ export default class Notice extends React.Component {
         );
     }
 }
+
+const styles = StyleSheet.create({
+    notice: {
+		zIndex: 2,
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		width: '100%',
+		height: '100%',
+		justifyContent: 'center',
+		alignItems: 'center',
+		backgroundColor: 'rgba(0,0,0,0.4)',
+	},
+	notice_text: {
+		fontFamily: 'ballo-chettan',
+	}
+});

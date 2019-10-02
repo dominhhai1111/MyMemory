@@ -10,7 +10,6 @@ export default class GridGroup extends React.Component {
         super(props);
 
         this.state = {
-            status: props.status,
             numbers: props.numbers,
             animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
             currentGesturedGridId: '',
@@ -110,6 +109,7 @@ export default class GridGroup extends React.Component {
     gestureGrid = async (evt, type) => {
         const { pageX, pageY } = evt.nativeEvent;
         const { onUpdate, status } = this.props;
+        const isUpdated = false;
 
         if (status == config.STATUS_ANSWERING) {
             this.measurements.map(async measurement => {
@@ -123,36 +123,48 @@ export default class GridGroup extends React.Component {
                         type == config.EVENT_GRANT ||
                         (type == config.EVENT_MOVE && measurement.gridId != this.state.currentGesturedGridId)
                     ) {
-                        console.log(`Type: ${type}`);
-                        console.log(`Grid: ${measurement.gridId}`);
+                        await console.log('------------------');
+                        await console.log('Gesture Event');
+                        await console.log(`Type: ${type}`);
+                        await console.log(`Grid: ${measurement.gridId}`);
+                        await console.log('------------------');
                         if (this.state.currentGesturedGridId != '') {
                             await this.refs[this.state.currentGesturedGridId].onDropGrid();
                         }
                         
                         await this.setState({ currentGesturedGridId: measurement.gridId });
-                        await console.log(this.state);
                         await this.refs[measurement.gridId].onPressGrid();
                         await onUpdate(measurement.gridId);
     
-                        return;
-                    }
+                        isUpdated = true;
+                    } else if ( type == config.EVENT_RELEASE ) {
+                        await console.log('------------------');
+                        await console.log('Gesture Event');
+                        await console.log(`Type: ${type}`);
+                        await console.log(`Grid: ${measurement.gridId}`);
+                        await console.log('------------------');
+                        this.removeGestureGrid();
     
-                    if ( type == config.EVENT_RELEASE ) {
-                        await this.setState({ currentGesturedGridId: '' });
-                        await this.refs[measurement.gridId].onDropGrid();
-    
-                        return;
+                        isUpdated = true;
                     }
                 }
             })
     
-            if (this.state.currentGesturedGridId) {
-                await this.refs[this.state.currentGesturedGridId].onDropGrid();
-                await this.setState({ currentGesturedGridId: '' });
+            if (type == config.EVENT_RELEASE && !isUpdated) {
+                await console.log('------------------');
+                await console.log('Gesture Event');
+                await console.log(`Type: ${type}`);
+                await console.log(`Remove current`);
+                await console.log('------------------');
 
-                return;
+                this.removeGestureGrid();
             }
         }
+    }
+
+    removeGestureGrid = async () => {
+        await this.refs[this.state.currentGesturedGridId].onDropGrid();
+        await this.setState({ currentGesturedGridId: '' });
     }
 
     render() {
