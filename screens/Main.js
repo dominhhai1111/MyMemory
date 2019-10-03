@@ -4,6 +4,7 @@ import {
 	View,
 	Animated,
 	AsyncStorage,
+	Modal,
 } from 'react-native';
 import constants from 'expo-constants';
 import _ from 'lodash';
@@ -14,6 +15,7 @@ import GridGroup from '../components/GridGroup';
 import Info from '../components/Info';
 import ControlButton from '../components/ControlButton';
 import Notice from '../components/Notice';
+import Guide from '../components/Guide';
 
 const GRIDGROUP = 1;
 const NOTICE = 2;
@@ -54,6 +56,7 @@ export default class Main extends React.Component {
 			animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
 			touchingColor: config.COLOR_TOUCHING,
 			highestLevel: 0,
+			showModal: true,
 		};
 
 		this.btnControlText = {
@@ -351,6 +354,14 @@ export default class Main extends React.Component {
 		await this.setStatus(config.STATUS_SHOWING);
 	}
 
+	openModal = () => {
+		this.setState({ showModal: true });
+	}
+
+	closeModal = () => {
+		this.setState({ showModal: false });
+	}
+
 	render() {
 		const {
 			status,
@@ -362,6 +373,7 @@ export default class Main extends React.Component {
 			btnControlText,
 			touchingColor,
 			highestLevel,
+			showModal,
 		} = this.state;
 
 		return (
@@ -388,6 +400,17 @@ export default class Main extends React.Component {
 					onPressBtnControl={this.onPressBtnControl}
 					btnControlText={btnControlText}
 				/>
+				<Modal
+					visible={showModal}
+					transparent
+					animationType="slide"
+					onRequestClose={this.closeModal}
+				>
+					<Guide
+						style={styles.guide}
+						onClose={this.closeModal}
+					/>
+				</Modal>
 			</View>
 		);
 	}
@@ -399,5 +422,8 @@ const styles = StyleSheet.create({
 		marginTop: constants.statusBarHeight,
 		height: '100%',
 		position: 'relative',
+	},
+	guide: {
+		width: '80%',
 	},
 });
