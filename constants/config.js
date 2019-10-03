@@ -4,7 +4,7 @@ export const STATUS_ANSWERING = 3;
 export const STATUS_WAITING = 4;
 export const STATUS_FINISH = 5;
 
-export const RATE_STEP_DURATION = 10;
+export const RATE_STEP_DURATION = 5;
 export const MAX_STEP_DURATION = 300;
 export const MIN_STEP_DURATION = 100;
 
@@ -16,6 +16,7 @@ export const COLOR_NORMAL = '#17a2b8';
 export const COLOR_TOUCHING = '#ffc107';
 export const COLOR_INCORRECT = '#ff0000';
 export const COLOR_GRAY = '#6c757d';
+export const COLOR_TOUCHING_ARR = ['#ffc107', '#E309AE', '#A304DA', '#DA1E04', '#017F27', '#02099C'];
 
 export const ANIMATE_GRID_DURATION = 800;
 export const ANIMATE_VALUE_NORMAL_BEGIN = 0;
@@ -42,3 +43,5 @@ export const COLUMN = 3;
 export const EVENT_GRANT = 1;
 export const EVENT_MOVE = 2;
 export const EVENT_RELEASE = 3;
+
+export const ASYNC_STORAGE_HIGHEST_LEVEL_KEY = 'ASYNC_STORAGE_HIGHEST_LEVEL_KEY';

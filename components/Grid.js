@@ -4,18 +4,18 @@ import { StyleSheet, Animated, View, TouchableHighlight } from 'react-native';
 import * as config from '../constants/config';
 
 export default class Grid extends React.Component {
-    constructor(props) {
-        super(props);
+	constructor(props) {
+		super(props);
 
-        this.state = {
-            duration: 20,
-            enableTouchGrid: false,
-            status: config.STATUS_START,
-            animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
-        }
-    }
+		this.state = {
+			duration: 20,
+			enableTouchGrid: false,
+			status: config.STATUS_START,
+			animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
+		}
+	}
 
-    animateGrid = async () => {
+	animateGrid = async () => {
 		await this.setState({
 			animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
 		});
@@ -24,14 +24,14 @@ export default class Grid extends React.Component {
 			duration: config.ANIMATE_GRID_DURATION,
 		}).start();
 	}
-	
+
 	onPressGrid = async () => {
 		await this.setState({
 			animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
 		});
 		await Animated.timing(this.state.animatedColor, {
 			toValue: config.ANIMATE_VALUE_TOUCHING,
-			duration: config.ANIMATE_GRID_DURATION/2,
+			duration: config.ANIMATE_GRID_DURATION / 2,
 		}).start();
 	}
 
@@ -41,16 +41,16 @@ export default class Grid extends React.Component {
 		});
 		await Animated.timing(this.state.animatedColor, {
 			toValue: config.ANIMATE_VALUE_NORMAL_END,
-			duration: config.ANIMATE_GRID_DURATION/2,
+			duration: config.ANIMATE_GRID_DURATION / 2,
 		}).start();
 	}
-    
-    enableTouchGrid(enableTouchGrid) {
+
+	enableTouchGrid(enableTouchGrid) {
 		this.setState(
-				{
-					'enableTouchGrid': enableTouchGrid
-				}
-			);
+			{
+				'enableTouchGrid': enableTouchGrid
+			}
+		);
 	}
 
 	setColor(color) {
@@ -58,7 +58,7 @@ export default class Grid extends React.Component {
 			this.setState({
 				animatedColor: new Animated.Value(color),
 			});
-		} 
+		}
 	}
 
 	async setStatus(status) {
@@ -108,10 +108,10 @@ export default class Grid extends React.Component {
 
 	setFinishStatus() {
 		this.enableTouchGrid(false);
-    }
-    
-    addMeasurement = () => {
-        const { gridId, addMeasurement } = this.props;
+	}
+
+	addMeasurement = () => {
+		const { gridId, addMeasurement } = this.props;
 		this.grid.measure((fx, fy, width, height, px, py) => {
 			let measurement = {
 				gridId: gridId,
@@ -120,57 +120,58 @@ export default class Grid extends React.Component {
 				y1: py,
 				y2: py + height,
 			};
-	
+
 			addMeasurement(measurement);
 		});
-    }
+	}
 
-    render() {
-        const { gridId, onUpdate } = this.props;
-        const interpolatedColor = this.state.animatedColor.interpolate({
+	render() {
+		const { touchingColor } = this.props;
+
+		const interpolatedColor = this.state.animatedColor.interpolate({
 			inputRange: [
-				config.ANIMATE_VALUE_INCORRECT, 
-				config.ANIMATE_VALUE_NORMAL_BEGIN, 
+				config.ANIMATE_VALUE_INCORRECT,
+				config.ANIMATE_VALUE_NORMAL_BEGIN,
 				(config.ANIMATE_VALUE_NORMAL_BEGIN + config.ANIMATE_VALUE_TOUCHING) / 2,
-				config.ANIMATE_VALUE_TOUCHING, 
-				(config.ANIMATE_VALUE_TOUCHING + config.ANIMATE_VALUE_NORMAL_END) / 2, 
+				config.ANIMATE_VALUE_TOUCHING,
+				(config.ANIMATE_VALUE_TOUCHING + config.ANIMATE_VALUE_NORMAL_END) / 2,
 				config.ANIMATE_VALUE_NORMAL_END
 			],
 			outputRange: [
 				config.COLOR_INCORRECT,
-				config.COLOR_NORMAL, 
-				config.COLOR_TOUCHING, 
-				config.COLOR_TOUCHING, 
-				config.COLOR_TOUCHING,
+				config.COLOR_NORMAL,
+				touchingColor,
+				touchingColor,
+				touchingColor,
 				config.COLOR_NORMAL],
 		});
 		const animatedStyle = {
 			backgroundColor: interpolatedColor,
 		};
 
-        return(
-            <View
-				ref={ view => { this.grid = view } } 
-                onLayout={() => {
-                    this.addMeasurement();
-                }}
+		return (
+			<View
+				ref={view => { this.grid = view }}
+				onLayout={() => {
+					this.addMeasurement();
+				}}
 			>
-                <Animated.View 
-                    style={[styles.grid, animatedStyle]} 
-                >
-                </Animated.View>
+				<Animated.View
+					style={[styles.grid, animatedStyle]}
+				>
+				</Animated.View>
 			</View>
-        );
-    }
+		);
+	}
 }
 
 const styles = StyleSheet.create({
-    grid: {
-    	width: '30%',
-    	aspectRatio: 1 / 1,
-        borderColor: 'black',
-        borderWidth: 1,
-        borderStyle: 'solid',
-        backgroundColor: '#17a2b8',
-    },
+	grid: {
+		width: '30%',
+		aspectRatio: 1 / 1,
+		borderColor: 'black',
+		borderWidth: 1,
+		borderStyle: 'solid',
+		backgroundColor: '#17a2b8',
+	},
 });

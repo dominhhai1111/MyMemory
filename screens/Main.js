@@ -2,7 +2,8 @@ import React from 'react';
 import {
 	StyleSheet,
 	View,
-	Animated
+	Animated,
+	AsyncStorage,
 } from 'react-native';
 import constants from 'expo-constants';
 import _ from 'lodash';
@@ -22,7 +23,7 @@ export default class Main extends React.Component {
 		super(props);
 
 		this.state = {
-			level: 1,
+			level: 0,
 			stepDuration: 100,
 			numbers: 9,
 			stepsNumber: 16,
@@ -51,6 +52,8 @@ export default class Main extends React.Component {
 			changeColorGridsTime: '',
 			showedNotice: false,
 			animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
+			touchingColor: config.COLOR_TOUCHING,
+			highestLevel: 0,
 		};
 
 		this.btnControlText = {
@@ -166,6 +169,8 @@ export default class Main extends React.Component {
 		const { status, level } = this.state;
 		let currentLevel = 0;
 
+		this.setHighestLevel();
+
 		if (status != config.STATUS_FINISH && status != config.STATUS_START) {
 			currentLevel = level + 1;
 		} else {
@@ -181,6 +186,7 @@ export default class Main extends React.Component {
 		this.setStepDuration();
 		this.setStepsNumber();
 		this.setSteps();
+		this.setTouchingColor();
 	}
 
 	setStepDuration = () => {
@@ -190,23 +196,23 @@ export default class Main extends React.Component {
 		stepDuration = stepDuration > config.MIN_STEP_DURATION ? stepDuration : config.MIN_STEP_DURATION;
 
 		this.setState({ stepDuration });
-    }
+	}
 
-    setStepsNumber = () => {
+	setStepsNumber = () => {
 		console.log(`Set step numbers`);
 		const { level, stepsNumber } = this.state;
-    	let currentStepsNumber = config.MIN_STEPS_NUMBER;
+		let currentStepsNumber = config.MIN_STEPS_NUMBER;
 
-    	if (level != 1) {
-    		currentStepsNumber = stepsNumber + 1;
-    	}
+		if (level != 1) {
+			currentStepsNumber = stepsNumber + 1;
+		}
 
-    	this.setState({
+		this.setState({
 			stepsNumber: currentStepsNumber,
 		});
-    }
+	}
 
-    setSteps = () => {
+	setSteps = () => {
 		console.log(`Set steps`);
 		let steps = {};
 		let moves = this.getMoves();
@@ -237,15 +243,15 @@ export default class Main extends React.Component {
 			exception = (moves.length >= 2) ? _.nth(moves, -2) : null;
 			possibilities = [];
 
-			tmpMoves.push({x: currentMove.x-1, y: currentMove.y});
-			tmpMoves.push({x: currentMove.x+1, y: currentMove.y});
-			tmpMoves.push({x: currentMove.x, y: currentMove.y-1});
-			tmpMoves.push({x: currentMove.x, y: currentMove.y+1});
+			tmpMoves.push({ x: currentMove.x - 1, y: currentMove.y });
+			tmpMoves.push({ x: currentMove.x + 1, y: currentMove.y });
+			tmpMoves.push({ x: currentMove.x, y: currentMove.y - 1 });
+			tmpMoves.push({ x: currentMove.x, y: currentMove.y + 1 });
 
 			tmpMoves.map(tmpMove => {
 				if (
-					tmpMove.x >= 0 
-					&& tmpMove.x <= config.COLUMN - 1 
+					tmpMove.x >= 0
+					&& tmpMove.x <= config.COLUMN - 1
 					&& tmpMove.y >= 0
 					&& tmpMove.y <= config.ROW - 1
 				) {
@@ -257,12 +263,17 @@ export default class Main extends React.Component {
 					}
 				}
 			});
-		
+
 			moves.push(_.sample(possibilities));
 		}
 
 		return moves;
 	}
+
+	setTouchingColor = () => {
+		let touchingColor = _.sample(config.COLOR_TOUCHING_ARR);
+		this.setState({ touchingColor });
+	};
 
 	showNotice = (notice) => {
 		this.refs[this.refsName[NOTICE]].showNotice(notice);
@@ -290,20 +301,46 @@ export default class Main extends React.Component {
 		});
 	}
 
+	setHighestLevel = async () => {
+		let highestLevel = 0;
+
+		try {
+			highestLevel = await AsyncStorage.getItem(config.ASYNC_STORAGE_HIGHEST_LEVEL_KEY);
+			await this.setState({ highestLevel });
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	updateHighestLevel = async () => {
+		const { level } = this.state;
+		let highestLevel = 0;
+
+		try {
+			highestLevel = await AsyncStorage.getItem(config.ASYNC_STORAGE_HIGHEST_LEVEL_KEY);
+			if (level > highestLevel) {
+				await AsyncStorage.setItem(config.ASYNC_STORAGE_HIGHEST_LEVEL_KEY, level.toString());
+			}
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
 	checkCorrection = async (gridId) => {
 		console.log('Check correction');
 		await this.setState(previousState => ({
-				'currentCheckedNumber': previousState.currentCheckedNumber + 1,
-			}));
+			'currentCheckedNumber': previousState.currentCheckedNumber + 1,
+		}));
 
 		if (gridId != this.state.steps[this.state.currentCheckedNumber]) {
 			await this.refs[this.refsName[GRIDGROUP]].removeGestureGrid();
 			await this.refs[this.refsName[GRIDGROUP]].refs[gridId].setColor(config.ANIMATE_VALUE_INCORRECT);
 			this.setStatus(config.STATUS_FINISH);
-			
+
 		} else {
 			if (this.state.currentCheckedNumber == this.state.stepsNumber) {
 				this.refs[this.refsName[GRIDGROUP]].removeGestureGrid();
+				this.updateHighestLevel();
 				this.setStatus(config.STATUS_WAITING);
 			}
 		}
@@ -322,7 +359,9 @@ export default class Main extends React.Component {
 			currentCheckedNumber,
 			stepsNumber,
 			numbers,
-			btnControlText
+			btnControlText,
+			touchingColor,
+			highestLevel,
 		} = this.state;
 
 		return (
@@ -333,15 +372,17 @@ export default class Main extends React.Component {
 				/>
 				<Info
 					level={level}
+					highestLevel={highestLevel}
 					currentCheckedNumber={currentCheckedNumber}
 					stepsNumber={stepsNumber}
 				/>
-				<GridGroup 
+				<GridGroup
 					ref={this.refsName[GRIDGROUP]}
-					numbers={numbers} 
+					numbers={numbers}
 					status={status}
 					currentNumber={currentNumber}
 					onUpdate={this.checkCorrection}
+					touchingColor={touchingColor}
 				/>
 				<ControlButton
 					onPressBtnControl={this.onPressBtnControl}

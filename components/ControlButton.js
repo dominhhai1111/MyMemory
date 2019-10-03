@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     btn_area_bound: {
 		alignItems: 'center',
 		justifyContent: 'center',
-		height: '20%',
+		// height: '20%',
     },
     btn_control: {
     	paddingTop: 10,

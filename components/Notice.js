@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
-import { Font } from 'expo-font';
+import * as Font from 'expo-font';
 
 import * as config from '../constants/config';
 

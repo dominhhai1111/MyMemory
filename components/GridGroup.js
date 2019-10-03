@@ -59,7 +59,7 @@ export default class GridGroup extends React.Component {
 
     renderGrids = () => {
         const { numbers } = this.state;
-        const { onUpdate } = this.props;
+        const { onUpdate, touchingColor } = this.props;
         let grids = [];
 
         let range = _.range(1, numbers + 1);
@@ -71,6 +71,7 @@ export default class GridGroup extends React.Component {
                     gridId={number}
                     onUpdate={onUpdate}
                     addMeasurement={this.addMeasurement}
+                    touchingColor={touchingColor}
                 />
             );
         });
@@ -197,7 +198,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
-        height: '70%',
+        // height: '60%',
+        marginBottom: 30,
     },
     grid_area: {
         justifyContent: 'center',
