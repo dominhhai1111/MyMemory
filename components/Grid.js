@@ -167,7 +167,7 @@ export default class Grid extends React.Component {
 
 const styles = StyleSheet.create({
 	grid: {
-		width: '30%',
+		width: '32%',
 		aspectRatio: 1 / 1,
 		borderColor: 'black',
 		borderWidth: 1,

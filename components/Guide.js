@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     guide_bound: {
         width: '80%',
         height: '70%',
-        backgroundColor: '#ccc'
+        backgroundColor: 'white'
     },
     text: {
         color: 'white',

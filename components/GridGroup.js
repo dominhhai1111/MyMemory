@@ -172,7 +172,7 @@ export default class GridGroup extends React.Component {
         const grids = this.renderGrids();
         const interpolatedBorderColor = this.state.animatedBorderColor.interpolate({
             inputRange: [config.ANIMATE_BORDER_ONE, config.ANIMATE_BORDER_TWO, config.ANIMATE_BORDER_THREE],
-            outputRange: [config.COLOR_GRAY, config.COLOR_TOUCHING, config.COLOR_GRAY],
+            outputRange: [config.STYLE_DEFAULT_BORDER_COLOR, config.COLOR_TOUCHING, config.STYLE_DEFAULT_BORDER_COLOR],
         });
         const animatedBorderStyle = {
             backgroundColor: interpolatedBorderColor,

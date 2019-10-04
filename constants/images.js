@@ -1,0 +1,1 @@
+export const IMAGE_BG = require('../assets/images/mymemory_bg.png');

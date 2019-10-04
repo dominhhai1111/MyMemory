@@ -5,17 +5,20 @@ import {
 	Animated,
 	AsyncStorage,
 	Modal,
+	ImageBackground,
+	StatusBar,
 } from 'react-native';
-import constants from 'expo-constants';
 import _ from 'lodash';
 
 import * as config from '../constants/config';
+import { IMAGE_BG } from '../constants/images';
 
 import GridGroup from '../components/GridGroup';
 import Info from '../components/Info';
 import ControlButton from '../components/ControlButton';
 import Notice from '../components/Notice';
 import Guide from '../components/Guide';
+import MyStatusBar from '../components/MyStatusBar';
 
 const GRIDGROUP = 1;
 const NOTICE = 2;
@@ -56,7 +59,7 @@ export default class Main extends React.Component {
 			animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
 			touchingColor: config.COLOR_TOUCHING,
 			highestLevel: 0,
-			showModal: true,
+			showModal: false,
 		};
 
 		this.btnControlText = {
@@ -377,7 +380,8 @@ export default class Main extends React.Component {
 		} = this.state;
 
 		return (
-			<View style={styles.container}>
+			<ImageBackground source={IMAGE_BG} style={styles.container}>
+				<StatusBar hidden />
 				<Notice
 					ref={this.refsName[NOTICE]}
 					continue={this.continue}
@@ -411,7 +415,7 @@ export default class Main extends React.Component {
 						onClose={this.closeModal}
 					/>
 				</Modal>
-			</View>
+			</ImageBackground>
 		);
 	}
 }
@@ -419,9 +423,11 @@ export default class Main extends React.Component {
 const styles = StyleSheet.create({
 	container: {
 		width: '100%',
-		marginTop: constants.statusBarHeight,
+		// marginTop: constants.statusBarHeight,
 		height: '100%',
 		position: 'relative',
+		// backgroundColor: config.STYLE_BACKGROUND_COLOR,
+
 	},
 	guide: {
 		width: '80%',

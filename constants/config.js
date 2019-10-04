@@ -12,7 +12,7 @@ export const MIN_STEPS_NUMBER = 5;
 export const MIN_GRID = 1;
 export const MAX_GRID = 9;
 
-export const COLOR_NORMAL = '#17a2b8';
+export const COLOR_NORMAL = '#93054e';
 export const COLOR_TOUCHING = '#ffc107';
 export const COLOR_INCORRECT = '#ff0000';
 export const COLOR_GRAY = '#6c757d';
@@ -45,3 +45,7 @@ export const EVENT_MOVE = 2;
 export const EVENT_RELEASE = 3;
 
 export const ASYNC_STORAGE_HIGHEST_LEVEL_KEY = 'ASYNC_STORAGE_HIGHEST_LEVEL_KEY';
+
+export const STYLE_BACKGROUND_COLOR = '#e37632';
+export const STYLE_TEXT_COLOR = 'black';
+export const STYLE_DEFAULT_BORDER_COLOR = 'black';
