@@ -110,7 +110,7 @@ export default class GridGroup extends React.Component {
     gestureGrid = async (evt, type) => {
         const { pageX, pageY } = evt.nativeEvent;
         const { onUpdate, status } = this.props;
-        const isUpdated = false;
+        let isUpdated = false;
 
         if (status == config.STATUS_ANSWERING) {
             this.measurements.map(async measurement => {

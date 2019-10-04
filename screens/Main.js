@@ -56,7 +56,7 @@ export default class Main extends React.Component {
 			animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
 			touchingColor: config.COLOR_TOUCHING,
 			highestLevel: 0,
-			showModal: true,
+			showModal: false,
 		};
 
 		this.btnControlText = {
@@ -156,7 +156,7 @@ export default class Main extends React.Component {
 	}
 
 	setAnsweringStatus = () => {
-		this.animateBorder();
+		this.refs[this.refsName[GRIDGROUP]].animateBorder();
 	}
 
 	setWaitingStatus = () => {
