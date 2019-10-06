@@ -1,15 +1,14 @@
 import React from 'react';
 import {
-	StyleSheet,
 	View,
 	Animated,
 	AsyncStorage,
 	Modal,
 } from 'react-native';
-import constants from 'expo-constants';
 import _ from 'lodash';
 
 import * as config from '../constants/config';
+import { styles } from '../styles/main';
 
 import GridGroup from '../components/GridGroup';
 import Info from '../components/Info';
@@ -415,15 +414,3 @@ export default class Main extends React.Component {
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	container: {
-		width: '100%',
-		marginTop: constants.statusBarHeight,
-		height: '100%',
-		position: 'relative',
-	},
-	guide: {
-		width: '80%',
-	},
-});

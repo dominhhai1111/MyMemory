@@ -3,6 +3,8 @@ import { StyleSheet, View, Animated, PanResponder } from 'react-native';
 import _ from 'lodash';
 
 import * as config from '../constants/config';
+import { styles } from '../styles/main';
+
 import Grid from '../components/Grid';
 
 export default class GridGroup extends React.Component {
@@ -192,22 +194,3 @@ export default class GridGroup extends React.Component {
         );
     }
 }
-
-const styles = StyleSheet.create({
-    grid_area_bound: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        // height: '60%',
-        marginBottom: 30,
-    },
-    grid_area: {
-        justifyContent: 'center',
-        alignItems: 'center',
-        alignContent: 'center',
-        flexWrap: 'wrap',
-        width: '90%',
-        aspectRatio: 1 / 1,
-        margin: 'auto',
-    },
-});

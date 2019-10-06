@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Animated, View, TouchableHighlight } from 'react-native';
 
 import * as config from '../constants/config';
+import { styles } from '../styles/main';
 
 export default class Grid extends React.Component {
 	constructor(props) {
@@ -151,27 +152,17 @@ export default class Grid extends React.Component {
 
 		return (
 			<View
+				style={styles.grid}
 				ref={view => { this.grid = view }}
 				onLayout={() => {
 					this.addMeasurement();
 				}}
 			>
 				<Animated.View
-					style={[styles.grid, animatedStyle]}
+					style={[styles.animated_grid, animatedStyle]}
 				>
 				</Animated.View>
 			</View>
 		);
 	}
 }
-
-const styles = StyleSheet.create({
-	grid: {
-		width: '30%',
-		aspectRatio: 1 / 1,
-		borderColor: 'black',
-		borderWidth: 1,
-		borderStyle: 'solid',
-		backgroundColor: '#17a2b8',
-	},
-});
