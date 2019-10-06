@@ -18,6 +18,7 @@ import Guide from '../components/Guide';
 
 const GRIDGROUP = 1;
 const NOTICE = 2;
+const CONTROL_BUTTON = 3;
 
 export default class Main extends React.Component {
 	constructor(props) {
@@ -26,28 +27,11 @@ export default class Main extends React.Component {
 		this.state = {
 			level: 0,
 			stepDuration: 100,
-			numbers: 9,
+			numbers: 16,
 			stepsNumber: 16,
 			currentNumber: 1,
 			currentCheckedNumber: 0,
-			steps: {
-				1: 1,
-				2: 2,
-				3: 3,
-				4: 6,
-				5: 9,
-				6: 8,
-				7: 7,
-				8: 4,
-				9: 5,
-				10: 4,
-				11: 7,
-				12: 8,
-				13: 9,
-				14: 6,
-				15: 3,
-				16: 2,
-			},
+			steps: {},
 			status: config.STATUS_SHOWING,
 			btnControlText: '',
 			changeColorGridsTime: '',
@@ -69,6 +53,7 @@ export default class Main extends React.Component {
 		this.refsName = {
 			[GRIDGROUP]: 'GRID_GROUP',
 			[NOTICE]: 'NOTICE',
+			[CONTROL_BUTTON]: 'CONTROL_BUTTON',
 		};
 
 		this.map = {
@@ -90,9 +75,24 @@ export default class Main extends React.Component {
 		}
 	}
 
-	componentDidMount() {
-		this.setStatus(config.STATUS_START);
+	componentDidMount = async () => {
+		await this.setMap();
+		await this.setStatus(config.STATUS_START);
 	}
+
+	setMap = async () => {
+		let map = {};
+
+		for (i = 0; i < config.ROW; i++) {
+			map[i] = {};
+			for (j = 0; j < config.COLUMN; j++) {
+				map[i][j] = i + j * config.ROW + 1;
+			}
+		}
+
+		this.map = map;
+		console.log(map);
+	};
 
 	setStatus = async (status) => {
 		console.log(`Set status: ${status}`);
@@ -234,8 +234,8 @@ export default class Main extends React.Component {
 		let possibilities = [];
 		let exception = {};
 		let firstMove = {
-			x: _.random(0, 2),
-			y: _.random(0, 2)
+			x: _.random(0, config.ROW - 1),
+			y: _.random(0, config.COLUMN - 1)
 		};
 		moves.push(firstMove);
 
@@ -301,6 +301,14 @@ export default class Main extends React.Component {
 		this.setState({
 			btnControlText: this.btnControlText[status],
 		});
+
+		if (status == config.STATUS_START ||
+			status == config.STATUS_WAITING ||
+			status == config.STATUS_FINISH) {
+			this.refs[this.refsName[CONTROL_BUTTON]].turnOnAnimation();
+		} else {
+			this.refs[this.refsName[CONTROL_BUTTON]].turnOffAnimation();
+		}
 	}
 
 	setHighestLevel = async () => {
@@ -396,6 +404,7 @@ export default class Main extends React.Component {
 					touchingColor={touchingColor}
 				/>
 				<ControlButton
+					ref={this.refsName[CONTROL_BUTTON]}
 					onPressBtnControl={this.onPressBtnControl}
 					btnControlText={btnControlText}
 				/>

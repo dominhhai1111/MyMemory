@@ -20,7 +20,7 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         width: '100%',
         aspectRatio: 1 / 1,
-        marginBottom: 30,
+        // marginBottom: 30,
     },
     grid_area: {
         justifyContent: 'center',
@@ -32,8 +32,8 @@ export const styles = StyleSheet.create({
         aspectRatio: 1 / 1,
     },
     grid: {
-		width: '32%',
-		height: '32%',
+		width: '24%',
+		height: '24%',
 		borderColor: 'black',
 		borderWidth: 1,
 		borderStyle: 'solid',
@@ -46,10 +46,10 @@ export const styles = StyleSheet.create({
     score_area_bound: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: '15%',
+        height: '20%',
         width: '100%',
-        marginTop: 20,
-        marginBottom: 30,
+        // marginTop: 20,
+        // marginBottom: 30,
     },
     score_area: {
         flexDirection: 'row',
@@ -70,7 +70,7 @@ export const styles = StyleSheet.create({
     btn_area_bound: {
         alignItems: 'center',
         justifyContent: 'center',
-        height: '25%',
+        height: '20%',
     },
     btn_control: {
         paddingTop: 10,

@@ -37,11 +37,17 @@ export const ANIMATE_BORDER_ONE = 0;
 export const ANIMATE_BORDER_TWO = 200;
 export const ANIMATE_BORDER_THREE = 400;
 
-export const ROW = 3;
-export const COLUMN = 3;
+export const ROW = 4;
+export const COLUMN = 4;
 
 export const EVENT_GRANT = 1;
 export const EVENT_MOVE = 2;
 export const EVENT_RELEASE = 3;
 
 export const ASYNC_STORAGE_HIGHEST_LEVEL_KEY = 'ASYNC_STORAGE_HIGHEST_LEVEL_KEY';
+
+export const ANIMATE_CONTROL_BUTTON_BEGIN = 0;
+export const ANIMATE_CONTROL_BUTTON_END = 100;
+export const ANIMATE_CONTROL_BUTON_TIMEOUT = 1000;
+export const ANIMATE_CONTROL_COLOR_BEGIN = '#f0f07f';
+export const ANIMATE_CONTROL_COLOR_END = '#f07f7f';

@@ -114,7 +114,7 @@ export default class GridGroup extends React.Component {
         const { onUpdate, status } = this.props;
         let isUpdated = false;
 
-        if (status == config.STATUS_ANSWERING) {
+        if (status == config.STATUS_ANSWERING || status == config.STATUS_START) {
             this.measurements.map(async measurement => {
                 if (
                     pageX >= measurement.x1
@@ -137,8 +137,11 @@ export default class GridGroup extends React.Component {
                         
                         await this.setState({ currentGesturedGridId: measurement.gridId });
                         await this.refs[measurement.gridId].onPressGrid();
-                        await onUpdate(measurement.gridId);
-    
+
+                        if (status == config.STATUS_ANSWERING) {
+                            await onUpdate(measurement.gridId);
+                        }
+                            
                         isUpdated = true;
                     } else if ( type == config.EVENT_RELEASE ) {
                         await console.log('------------------');

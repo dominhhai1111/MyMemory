@@ -10,7 +10,7 @@ export default class Grid extends React.Component {
 
 		this.state = {
 			duration: 20,
-			enableTouchGrid: false,
+			enableTouchGrid: true,
 			status: config.STATUS_START,
 			animatedColor: new Animated.Value(config.ANIMATE_VALUE_NORMAL_BEGIN),
 		}
