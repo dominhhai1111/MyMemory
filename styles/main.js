@@ -8,11 +8,9 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'center',
-		paddingTop: constants.statusBarHeight,
-    },
-    
-	guide: {
-		width: '80%',
+        paddingTop: constants.statusBarHeight,
+        position: 'relative',
+        zIndex: 1,
     },
 
     grid_area_bound: {

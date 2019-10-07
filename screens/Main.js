@@ -385,6 +385,7 @@ export default class Main extends React.Component {
 
 		return (
 			<View style={styles.container}>
+				<Guide/>
 				<Notice
 					ref={this.refsName[NOTICE]}
 					continue={this.continue}
@@ -408,7 +409,7 @@ export default class Main extends React.Component {
 					onPressBtnControl={this.onPressBtnControl}
 					btnControlText={btnControlText}
 				/>
-				<Modal
+				{/* <Modal
 					visible={showModal}
 					transparent
 					animationType="slide"
@@ -418,7 +419,7 @@ export default class Main extends React.Component {
 						style={styles.guide}
 						onClose={this.closeModal}
 					/>
-				</Modal>
+				</Modal> */}
 			</View>
 		);
 	}
