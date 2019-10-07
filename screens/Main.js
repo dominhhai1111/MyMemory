@@ -39,7 +39,7 @@ export default class Main extends React.Component {
 			animatedBorderColor: new Animated.Value(config.ANIMATE_BORDER_ONE),
 			touchingColor: config.COLOR_TOUCHING,
 			highestLevel: 0,
-			showModal: false,
+			showGuide: false,
 		};
 
 		this.btnControlText = {
@@ -79,6 +79,14 @@ export default class Main extends React.Component {
 		await this.setMap();
 		await this.setStatus(config.STATUS_START);
 	}
+
+	showGuide = () => {
+		this.setState({ showGuide: true });
+	};
+
+	hiddenGuide = () => {
+		this.setState({ showGuide: false });
+	};
 
 	setMap = async () => {
 		let map = {};
@@ -128,6 +136,7 @@ export default class Main extends React.Component {
 	}
 
 	setStartStatus = () => {
+		this.showGuide();
 		this.setUpLevel();
 	}
 
@@ -380,12 +389,17 @@ export default class Main extends React.Component {
 			btnControlText,
 			touchingColor,
 			highestLevel,
-			showModal,
+			showGuide,
 		} = this.state;
 
 		return (
 			<View style={styles.container}>
-				<Guide/>
+				{
+					showGuide ? (
+						<Guide hiddenGuide={this.hiddenGuide}/>		
+					) : null
+				}
+				
 				<Notice
 					ref={this.refsName[NOTICE]}
 					continue={this.continue}
@@ -409,17 +423,6 @@ export default class Main extends React.Component {
 					onPressBtnControl={this.onPressBtnControl}
 					btnControlText={btnControlText}
 				/>
-				{/* <Modal
-					visible={showModal}
-					transparent
-					animationType="slide"
-					onRequestClose={this.closeModal}
-				>
-					<Guide
-						style={styles.guide}
-						onClose={this.closeModal}
-					/>
-				</Modal> */}
 			</View>
 		);
 	}
