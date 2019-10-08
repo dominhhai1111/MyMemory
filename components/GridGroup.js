@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View, Animated, PanResponder } from 'react-native';
+import { View, Animated, PanResponder } from 'react-native';
 import _ from 'lodash';
 
 import * as config from '../constants/config';
@@ -38,7 +38,6 @@ export default class GridGroup extends React.Component {
                 // The most recent move distance is gestureState.move{X,Y}
                 // The accumulated gesture distance since becoming responder is
                 // gestureState.d{x,y}
-                //   console.log(`Move: ${this.props.gridId}`);
                 this.gestureGrid(evt, config.EVENT_MOVE);
             },
             onPanResponderTerminationRequest: (evt, gestureState) => true,
@@ -83,18 +82,10 @@ export default class GridGroup extends React.Component {
 
     setPosition = () => {
         this.gridGroup.measure( (fx, fy, width, height, px, py) => {
-            // console.log('Component width is: ' + width)
-            // console.log('Component height is: ' + height)
-            // console.log('X offset to frame: ' + fx)
-            // console.log('Y offset to frame: ' + fy)
-            // console.log('X offset to page: ' + px)
-            // console.log('Y offset to page: ' + py)
             this.position = { 
                 x: px,
                 y: py,
             }
-
-            console.log(this.position);
         })        
     }
 
@@ -126,11 +117,6 @@ export default class GridGroup extends React.Component {
                         type == config.EVENT_GRANT ||
                         (type == config.EVENT_MOVE && measurement.gridId != this.state.currentGesturedGridId)
                     ) {
-                        await console.log('------------------');
-                        await console.log('Gesture Event');
-                        await console.log(`Type: ${type}`);
-                        await console.log(`Grid: ${measurement.gridId}`);
-                        await console.log('------------------');
                         if (this.state.currentGesturedGridId != '') {
                             await this.refs[this.state.currentGesturedGridId].onDropGrid();
                         }
@@ -143,12 +129,8 @@ export default class GridGroup extends React.Component {
                         }
                             
                         isUpdated = true;
+                        
                     } else if ( type == config.EVENT_RELEASE ) {
-                        await console.log('------------------');
-                        await console.log('Gesture Event');
-                        await console.log(`Type: ${type}`);
-                        await console.log(`Grid: ${measurement.gridId}`);
-                        await console.log('------------------');
                         this.removeGestureGrid();
     
                         isUpdated = true;
@@ -157,12 +139,6 @@ export default class GridGroup extends React.Component {
             })
     
             if (type == config.EVENT_RELEASE && !isUpdated) {
-                await console.log('------------------');
-                await console.log('Gesture Event');
-                await console.log(`Type: ${type}`);
-                await console.log(`Remove current`);
-                await console.log('------------------');
-
                 this.removeGestureGrid();
             }
         }

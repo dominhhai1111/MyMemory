@@ -3,7 +3,6 @@ import { View } from 'react-native';
 import * as Font from 'expo-font';
 
 import Main from './screens/Main';
-import Test from './screens/Test';
 import * as fontText from './constants/fonts';
 
 export default class App extends React.Component {
@@ -30,7 +29,6 @@ export default class App extends React.Component {
           ) : null
         }
       </View>
-      //<Test></Test>
     );
   }
 }

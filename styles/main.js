@@ -98,6 +98,30 @@ export const styles = StyleSheet.create({
 		backgroundColor: 'rgba(0,0,0,0.4)',
 	},
 	notice_text: {
-		fontFamily: 'ballo-chettan',
-	}
+		fontFamily: 'berlin-bold',
+    },
+    
+    guide_bound: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: 'center',
+        position: 'absolute',
+        zIndex: 99,
+        width: '100%',
+        height: '100%',
+        backgroundColor: "rgba(204, 204, 204, 0.3)",
+    },
+    guide_finger: {
+        height: 60,
+        width: 35,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+    },
+    guide_text: {
+        fontFamily: 'berlin-regular',
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 20
+    },
 });
