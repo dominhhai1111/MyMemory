@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Animated, View, TouchableHighlight } from 'react-native';
+import { Animated, View } from 'react-native';
 
 import * as config from '../constants/config';
 import { styles } from '../styles/main';

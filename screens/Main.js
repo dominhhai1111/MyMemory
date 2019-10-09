@@ -3,7 +3,6 @@ import {
 	View,
 	Animated,
 	AsyncStorage,
-	Modal,
 } from 'react-native';
 import _ from 'lodash';
 
@@ -56,23 +55,7 @@ export default class Main extends React.Component {
 			[CONTROL_BUTTON]: 'CONTROL_BUTTON',
 		};
 
-		this.map = {
-			0: {
-				0: 1,
-				1: 4,
-				2: 7,
-			},
-			1: {
-				0: 2,
-				1: 5,
-				2: 8,
-			},
-			2: {
-				0: 3,
-				1: 6,
-				2: 9,
-			},
-		}
+		this.map = {};
 	}
 
 	componentDidMount = async () => {
@@ -99,11 +82,9 @@ export default class Main extends React.Component {
 		}
 
 		this.map = map;
-		console.log(map);
 	};
 
 	setStatus = async (status) => {
-		console.log(`Set status: ${status}`);
 		await this.setState({
 			status: status,
 		});
@@ -141,7 +122,6 @@ export default class Main extends React.Component {
 	}
 
 	setShowingStatus = async () => {
-		console.log('Showing');
 		this.refs[this.refsName[GRIDGROUP]].animateBorder();
 
 		await clearInterval(this.state.changeColorGridsTime);
@@ -176,7 +156,6 @@ export default class Main extends React.Component {
 	}
 
 	setUpLevel = async () => {
-		console.log(`Set up level`);
 		const { status, level } = this.state;
 		let currentLevel = 0;
 
@@ -201,7 +180,6 @@ export default class Main extends React.Component {
 	}
 
 	setStepDuration = () => {
-		console.log(`Set step duration`);
 		const { level } = this.state;
 		let stepDuration = config.MAX_STEP_DURATION - config.RATE_STEP_DURATION * level;
 		stepDuration = stepDuration > config.MIN_STEP_DURATION ? stepDuration : config.MIN_STEP_DURATION;
@@ -210,7 +188,6 @@ export default class Main extends React.Component {
 	}
 
 	setStepsNumber = () => {
-		console.log(`Set step numbers`);
 		const { level, stepsNumber } = this.state;
 		let currentStepsNumber = config.MIN_STEPS_NUMBER;
 
@@ -224,7 +201,6 @@ export default class Main extends React.Component {
 	}
 
 	setSteps = () => {
-		console.log(`Set steps`);
 		let steps = {};
 		let moves = this.getMoves();
 		let index = 1;
@@ -233,7 +209,6 @@ export default class Main extends React.Component {
 			steps[index] = (this.map[move.x][move.y]);
 			index++;
 		});
-		console.log(steps);
 		this.setState({ steps });
 	}
 
@@ -291,7 +266,6 @@ export default class Main extends React.Component {
 	}
 
 	onPressBtnControl = async () => {
-		console.log('Press-control');
 		if (this.state.status == config.STATUS_START) {
 			this.setStatus(config.STATUS_SHOWING);
 		}
@@ -301,7 +275,6 @@ export default class Main extends React.Component {
 		}
 
 		if (this.state.status == config.STATUS_FINISH) {
-			console.log(`Restart`);
 			this.continue();
 		}
 	}
@@ -346,7 +319,6 @@ export default class Main extends React.Component {
 	}
 
 	checkCorrection = async (gridId) => {
-		console.log('Check correction');
 		await this.setState(previousState => ({
 			'currentCheckedNumber': previousState.currentCheckedNumber + 1,
 		}));
