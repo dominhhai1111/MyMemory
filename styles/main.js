@@ -1,5 +1,5 @@
 import { StyleSheet, Platform } from 'react-native';
-import constants from 'expo-constants';
+// import constants from 'expo-constants';
 
 import * as helper from '../utils/styleHelper';
 
@@ -8,7 +8,8 @@ export const styles = StyleSheet.create({
 		flex: 1,
 		flexDirection: 'column',
 		justifyContent: 'center',
-        paddingTop: constants.statusBarHeight,
+        // paddingTop: constants.statusBarHeight,
+        paddingTop: 40,
         position: 'relative',
         zIndex: 1,
     },
@@ -61,7 +62,7 @@ export const styles = StyleSheet.create({
         width: '90%',
     },
     font_text: {
-        fontFamily: 'berlin-regular',
+        // fontFamily: 'berlin-regular',
         fontSize: 24,
     },
 
@@ -83,7 +84,7 @@ export const styles = StyleSheet.create({
     },
     btn_control_text: {
         fontSize: 24,
-        fontFamily: 'berlin-bold',
+        // fontFamily: 'berlin-bold',
     },
 
     notice: {
@@ -98,7 +99,7 @@ export const styles = StyleSheet.create({
 		backgroundColor: 'rgba(0,0,0,0.4)',
 	},
 	notice_text: {
-		fontFamily: 'berlin-bold',
+		// fontFamily: 'berlin-bold',
     },
     
     guide_bound: {
@@ -119,7 +120,7 @@ export const styles = StyleSheet.create({
         left: 0,
     },
     guide_text: {
-        fontFamily: 'berlin-regular',
+        // fontFamily: 'berlin-regular',
         color: 'white',
         textAlign: 'center',
         fontSize: 20
