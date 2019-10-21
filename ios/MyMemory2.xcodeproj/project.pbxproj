@@ -5,7 +5,6 @@
 	};
 	objectVersion = 46;
 	objects = {
-
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* MyMemory2Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* MyMemory2Tests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
@@ -20,6 +19,11 @@
 		921DC4E8FF5CF2F823F29E49 /* libPods-MyMemory2-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4E60C96562B7DFDF16D1EE6C /* libPods-MyMemory2-tvOS.a */; };
 		9CE968E298903F7EEB28A6C0 /* libPods-MyMemory2Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95E754AC11DB7547298DA603 /* libPods-MyMemory2Tests.a */; };
 		E9CCC87937EE6EAFB0CA5628 /* libPods-MyMemory2-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6665F965B0FBE86450DF3746 /* libPods-MyMemory2-tvOSTests.a */; };
+		9D24F332DCAF467B8464276E /* BalooChettan-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6E389BA847D048008E12471D /* BalooChettan-Regular.ttf */; };
+		993E9F2D16E145E884314EB2 /* Berlin-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D94364A891A44D4E94D2D836 /* Berlin-Bold.ttf */; };
+		7ECF8782DBE4421E894391FE /* Berlin-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CBD22E175B574B0A940E304D /* Berlin-Regular.ttf */; };
+		BF08159CA35F481CA2882AB8 /* BreeSerif-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5655CB140F3C4F23B4C7BAED /* BreeSerif-Regular.ttf */; };
+		BDEC19C0501C4AF0AA6130B4 /* SpaceMono-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A30F7A22C9074CB08F4C9CE7 /* SpaceMono-Regular.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +71,11 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F1A78EF0F3D95FA4A2E891D7 /* Pods-MyMemory2-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyMemory2-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-MyMemory2-tvOSTests/Pods-MyMemory2-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		6E389BA847D048008E12471D /* BalooChettan-Regular.ttf */ = {isa = PBXFileReference; name = "BalooChettan-Regular.ttf"; path = "../assets/fonts/BalooChettan-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		D94364A891A44D4E94D2D836 /* Berlin-Bold.ttf */ = {isa = PBXFileReference; name = "Berlin-Bold.ttf"; path = "../assets/fonts/Berlin-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		CBD22E175B574B0A940E304D /* Berlin-Regular.ttf */ = {isa = PBXFileReference; name = "Berlin-Regular.ttf"; path = "../assets/fonts/Berlin-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		5655CB140F3C4F23B4C7BAED /* BreeSerif-Regular.ttf */ = {isa = PBXFileReference; name = "BreeSerif-Regular.ttf"; path = "../assets/fonts/BreeSerif-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		A30F7A22C9074CB08F4C9CE7 /* SpaceMono-Regular.ttf */ = {isa = PBXFileReference; name = "SpaceMono-Regular.ttf"; path = "../assets/fonts/SpaceMono-Regular.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -165,6 +174,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				ECDA202B5DE0A82C9453DA81 /* Pods */,
+				3806899A90F641AD9A4C76FE /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -197,6 +207,19 @@
 			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		3806899A90F641AD9A4C76FE /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				6E389BA847D048008E12471D /* BalooChettan-Regular.ttf */,
+				D94364A891A44D4E94D2D836 /* Berlin-Bold.ttf */,
+				CBD22E175B574B0A940E304D /* Berlin-Regular.ttf */,
+				5655CB140F3C4F23B4C7BAED /* BreeSerif-Regular.ttf */,
+				A30F7A22C9074CB08F4C9CE7 /* SpaceMono-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -285,7 +308,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 940;
 				ORGANIZATIONNAME = Facebook;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -338,6 +361,11 @@
 			files = (
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
+				9D24F332DCAF467B8464276E /* BalooChettan-Regular.ttf in Resources */,
+				993E9F2D16E145E884314EB2 /* Berlin-Bold.ttf in Resources */,
+				7ECF8782DBE4421E894391FE /* Berlin-Regular.ttf in Resources */,
+				BF08159CA35F481CA2882AB8 /* BreeSerif-Regular.ttf in Resources */,
+				BDEC19C0501C4AF0AA6130B4 /* SpaceMono-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

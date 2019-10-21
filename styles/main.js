@@ -5,9 +5,9 @@ import * as helper from '../utils/styleHelper';
 
 export const styles = StyleSheet.create({
     container: {
-		flex: 1,
-		flexDirection: 'column',
-		justifyContent: 'center',
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'center',
         // paddingTop: constants.statusBarHeight,
         paddingTop: 40,
         position: 'relative',
@@ -31,17 +31,17 @@ export const styles = StyleSheet.create({
         aspectRatio: 1 / 1,
     },
     grid: {
-		width: '24%',
-		height: '24%',
-		borderColor: 'black',
-		borderWidth: 1,
-		borderStyle: 'solid',
-	},
-	animated_grid: {
-		flex: 1,
-		backgroundColor: '#17a2b8',
+        width: '24%',
+        height: '24%',
+        borderColor: 'black',
+        borderWidth: 1,
+        borderStyle: 'solid',
     },
-    
+    animated_grid: {
+        flex: 1,
+        backgroundColor: '#17a2b8',
+    },
+
     score_area_bound: {
         alignItems: 'center',
         justifyContent: 'center',
@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
         width: '90%',
     },
     font_text: {
-        // fontFamily: 'berlin-regular',
+        fontFamily: 'Berlin-Regular',
         fontSize: 24,
     },
 
@@ -84,24 +84,24 @@ export const styles = StyleSheet.create({
     },
     btn_control_text: {
         fontSize: 24,
-        // fontFamily: 'berlin-bold',
+        fontFamily: 'Berlin-Bold',
     },
 
     notice: {
-		zIndex: 2,
-		position: 'absolute',
-		top: 0,
-		left: 0,
-		width: '100%',
-		height: '100%',
-		justifyContent: 'center',
-		alignItems: 'center',
-		backgroundColor: 'rgba(0,0,0,0.4)',
-	},
-	notice_text: {
-		// fontFamily: 'berlin-bold',
+        zIndex: 2,
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0,0,0,0.4)',
     },
-    
+    notice_text: {
+        fontFamily: 'Berlin-Bold',
+    },
+
     guide_bound: {
         flex: 1,
         justifyContent: "center",
@@ -120,7 +120,7 @@ export const styles = StyleSheet.create({
         left: 0,
     },
     guide_text: {
-        // fontFamily: 'berlin-regular',
+        fontFamily: 'Berlin-Regular',
         color: 'white',
         textAlign: 'center',
         fontSize: 20
