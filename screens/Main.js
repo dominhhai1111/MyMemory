@@ -2,9 +2,9 @@ import React from 'react';
 import {
 	View,
 	Animated,
-	AsyncStorage,
 } from 'react-native';
 import _ from 'lodash';
+import AsyncStorage from '@react-native-community/async-storage';
 
 import * as config from '../constants/config';
 import { styles } from '../styles/main';
